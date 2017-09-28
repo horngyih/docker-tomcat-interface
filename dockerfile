@@ -1,5 +1,7 @@
 FROM tomcat:7
 
+RUN echo "Asia/Kuala_Lumpur" > /etc/timezone
+RUN dpkg-reconfigure -f noninteractive tzdata
 RUN apt-get update
 RUN apt-get install libxrender1 xfonts-base xfonts-75dpi fontconfig xvfb -y
 RUN wget https://bitbucket.org/wkhtmltopdf/wkhtmltopdf/downloads/wkhtmltox-0.13.0-alpha-7b36694_linux-jessie-amd64.deb
