@@ -1,14 +1,5 @@
 FROM horngyih/java:jdk7
 
-RUN apt-get update
-RUN apt-get install -y software-properties-common apt-utils locales tzdata wget
-RUN echo "tzdata tzdata/Areas select Asia" > timezone.txt
-RUN echo "tzdata tzdata/Zones/Asia select Kuala_Lumpur" >> timezone.txt
-RUN debconf-set-selections timezone.txt
-RUN rm /etc/timezone
-RUN rm /etc/localtime
-RUN dpkg-reconfigure -f noninteractive tzdata
-
 WORKDIR /tmp
 RUN wget https://archive.apache.org/dist/tomcat/tomcat-7/v7.0.75/bin/apache-tomcat-7.0.75.tar.gz  
 RUN tar zxvf apache-tomcat*.gz -C /usr/local/
@@ -18,5 +9,6 @@ RUN ln -s apache-tomcat-7.0.75 tomcat
 RUN chmod -R 755 tomcat
 ENV CATALINA_HOME=/usr/local/tomcat
 
+WORKDIR /usr/local/tomcat
 CMD $CATALINA_HOME/bin/catalina.sh jpda run
 
