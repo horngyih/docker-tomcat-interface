@@ -8,13 +8,16 @@ RUN debconf-set-selections timezone.txt
 RUN rm /etc/timezone
 RUN rm /etc/localtime
 RUN dpkg-reconfigure -f noninteractive tzdata
+RUN add-apt-repository -y ppa:webupd8team/java
+RUN apt-get update
+RUN echo "oracle-java7-installer shared/accepted-oracle-license-v1-1 boolean true" > oracle-license-debconf
+RUN debconf-set-selections oracle-license-debconf
+RUN rm oracle-license-debconf
+RUN DEBIAN_FRONTEND="noninteractive" apt-get install -q -y oracle-java7-installer
 
 COPY ./apache-tomcat-7.0.75.tar.gz /tmp/apache-tomcat-7.0.75.tar.gz
 COPY ./jdk-7u80-linux-x64.tar.gz /tmp/jdk-7u80-linux-x64.tar.gz
 RUN tar zxvf /tmp/apache-tomcat-7.0.75.tar.gz -C /usr/local
-RUN tar zxvf /tmp/jdk-7u80-linux-x64.tar.gz -C /usr/local
 RUN ln -s /usr/local/apache-tomcat-7.0.75 /usr/local/tomcat
-RUN ln -s /usr/local/jdk1.7.0_80 /usr/local/jdk
 ENV CATALINA_HOME=/usr/local/tomcat
-ENV JAVA_HOME=/usr/local/jdk
 
