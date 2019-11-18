@@ -1,6 +1,9 @@
 FROM horngyih/tomcat:7-production
 
 RUN apt-get update
+RUN apt-get install apt-transport-https
+RUN echo "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" | debconf-set-selections
+RUN apt-get install -y --no-install-recommends fontconfig ttf-mscorefonts-installer
 RUN apt-get install xvfb -y
 RUN apt-get install libxrender1 -y
 RUN apt-get install xfonts-base -y
