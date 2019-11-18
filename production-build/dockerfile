@@ -1,6 +1,5 @@
 FROM horngyih/java:jdk7
 
-<<<<<<< HEAD
 RUN apt-get update
 RUN apt-get install -y software-properties-common apt-utils locales tzdata
 RUN echo "tzdata tzdata/Areas select Asia" > timezone.txt
@@ -21,7 +20,6 @@ COPY ./jdk-7u80-linux-x64.tar.gz /tmp/jdk-7u80-linux-x64.tar.gz
 RUN tar zxvf /tmp/apache-tomcat-7.0.75.tar.gz -C /usr/local
 RUN ln -s /usr/local/apache-tomcat-7.0.75 /usr/local/tomcat
 ENV CATALINA_HOME=/usr/local/tomcat
-=======
 WORKDIR /tmp
 RUN wget https://archive.apache.org/dist/tomcat/tomcat-7/v7.0.75/bin/apache-tomcat-7.0.75.tar.gz  
 RUN tar zxvf apache-tomcat*.gz -C /usr/local/
@@ -33,5 +31,3 @@ ENV CATALINA_HOME=/usr/local/tomcat
 
 WORKDIR /usr/local/tomcat
 CMD $CATALINA_HOME/bin/catalina.sh jpda run
->>>>>>> 5c6428308618b45516e053c20e2dd66ba2b33c1d
-
